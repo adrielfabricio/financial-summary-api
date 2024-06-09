@@ -1,15 +1,17 @@
-import express, { Express } from "express";
-import dotenv from "dotenv";
+import express from "express";
 
-dotenv.config();
+import salesRoutes from "@routes/sales.routes";
+import filterRoutes from "@routes/filter.routes";
+import transactionRoutes from "@routes/transaction.routes";
+import analyticsRoutes from "@routes/analytics.routes";
 
-const app: Express = express();
-const port = process.env.PORT || 3000;
+const app = express();
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+app.use(express.json());
 
-app.listen(port, () => {
-  console.log(`[server]: Server is running at http://localhost:${port}`);
-});
+app.use("/sales", salesRoutes);
+app.use("/filter", filterRoutes);
+app.use("/transaction", transactionRoutes);
+app.use("/analytics", analyticsRoutes);
+
+export default app;
