@@ -1,3 +1,6 @@
+import Order from "@models/order.model";
+
 export interface IFilterRepository {
-  fetchFilteredData(filters: any): Promise<any>;
+  filterOrders(criteria: any): Promise<Order[]>;
+  // other methods
 }

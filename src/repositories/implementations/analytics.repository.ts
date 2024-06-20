@@ -1,10 +1,29 @@
-import { IAnalyticsRepository } from "@repositories/interfaces/IAnalyticsRepository";
+import { Between, Repository } from "typeorm";
 
-export default class AnalyticsRepository implements IAnalyticsRepository {
-  public async fetchAnalyticsData(criteria: any): Promise<any> {
-    // Implement logic to fetch analytics data
-    // const query = `SELECT * FROM analytics WHERE criteria = ?`;
-    // const [rows] = await db.execute(query, [criteria]);
-    // return rows;
+import { IAnalyticsRepository } from "@repositories/interfaces/IAnalyticsRepository";
+import Order from "@models/order.model";
+import Database from "@config/database";
+
+class AnalyticsRepository implements IAnalyticsRepository {
+  private orderRepository: Repository<Order>;
+
+  constructor() {
+    this.orderRepository = Database.getInstance()
+      .getDataSource()
+      .getRepository(Order);
+  }
+
+  async getSalesDataByPeriod(startDate: Date, endDate: Date): Promise<Order[]> {
+    return await this.orderRepository.find({
+      where: {
+        date: Between(startDate, endDate),
+      },
+    });
+  }
+
+  async getTopSellingProducts(): Promise<any[]> {
+    return [];
   }
 }
+
+export default AnalyticsRepository;

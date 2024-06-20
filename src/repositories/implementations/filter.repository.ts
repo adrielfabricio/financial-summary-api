@@ -1,7 +1,20 @@
+import { Repository } from "typeorm";
 import { IFilterRepository } from "@repositories/interfaces/IFilterRepository";
+import Order from "@models/order.model";
+import Database from "@config/database";
 
-export default class FilterRepository implements IFilterRepository {
-  public async fetchFilteredData(filters: any): Promise<any> {
-    // Implement logic to fetch filtered data
+class FilterRepository implements IFilterRepository {
+  private orderRepository: Repository<Order>;
+
+  constructor() {
+    this.orderRepository = Database.getInstance()
+      .getDataSource()
+      .getRepository(Order);
+  }
+
+  async filterOrders(criteria: any): Promise<Order[]> {
+    return [];
   }
 }
+
+export default FilterRepository;

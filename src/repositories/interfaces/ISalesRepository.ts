@@ -1,3 +1,8 @@
+import Order from "@models/order.model";
+
 export interface ISalesRepository {
-  fetchSalesByPeriod(period: string): Promise<any>;
+  getDailySales(date: Date): Promise<Order[]>;
+  getWeeklySales(startDate: Date): Promise<Order[]>;
+  getMonthlySales(month: number, year: number): Promise<Order[]>;
+  getYearlySales(year: number): Promise<Order[]>;
 }
