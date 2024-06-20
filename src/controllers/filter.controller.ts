@@ -10,7 +10,7 @@ class FilterController {
 
   async filterOrders(req: Request, res: Response): Promise<Response> {
     try {
-      const criteria = req.body;
+      const criteria = req.query;
       const data = await this.filterService.filterOrders(criteria);
       return res.json(data);
     } catch (error) {

@@ -22,7 +22,15 @@ class AnalyticsRepository implements IAnalyticsRepository {
   }
 
   async getTopSellingProducts(): Promise<any[]> {
-    return [];
+    const query = `
+          SELECT p.name, SUM(oi.quantity) as totalQuantity
+          FROM order_items oi
+          JOIN products p ON oi.productId = p.id
+          GROUP BY p.name
+          ORDER BY totalQuantity DESC
+          LIMIT 10;
+      `;
+    return await this.orderRepository.query(query);
   }
 }
 

@@ -3,6 +3,8 @@ import { Router } from "express";
 
 const router = Router();
 
-router.get("/filter", filterController.getFilteredData);
+router.get("/filters/orders", (req, res) =>
+  filterController.filterOrders(req, res)
+);
 
 export default router;

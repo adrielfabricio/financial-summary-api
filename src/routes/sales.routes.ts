@@ -3,8 +3,14 @@ import { salesController } from "@container";
 
 const router = Router();
 
-router.get("/sales/daily", salesController.getDailySales);
-router.get("/sales/weekly", salesController.getWeeklySales);
-router.get("/sales/monthly", salesController.getMonthlySales);
+router.get("/sales/daily", (req, res) =>
+  salesController.getDailySales(req, res)
+);
+router.get("/sales/weekly", (req, res) =>
+  salesController.getWeeklySales(req, res)
+);
+router.get("/sales/monthly", (req, res) =>
+  salesController.getMonthlySales(req, res)
+);
 
 export default router;

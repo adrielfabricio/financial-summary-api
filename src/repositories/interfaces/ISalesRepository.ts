@@ -4,5 +4,4 @@ export interface ISalesRepository {
   getDailySales(date: Date): Promise<Order[]>;
   getWeeklySales(startDate: Date): Promise<Order[]>;
   getMonthlySales(month: number, year: number): Promise<Order[]>;
-  getYearlySales(year: number): Promise<Order[]>;
 }
