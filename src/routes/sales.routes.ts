@@ -12,5 +12,8 @@ router.get("/sales/weekly", (req, res) =>
 router.get("/sales/monthly", (req, res) =>
   salesController.getMonthlySales(req, res)
 );
+router.get("/sales/period", (req, res) =>
+  salesController.getSalesByPeriod(req, res)
+);
 
 export default router;

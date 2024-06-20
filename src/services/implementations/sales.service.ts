@@ -20,6 +20,10 @@ class SalesService implements ISalesService {
   async getMonthlySales(month: number, year: number): Promise<Order[]> {
     return await this.salesRepository.getMonthlySales(month, year);
   }
+
+  async getSalesByPeriod(startDate: Date, endDate: Date): Promise<Order[]> {
+    return await this.salesRepository.getSalesByPeriod(startDate, endDate);
+  }
 }
 
 export default SalesService;

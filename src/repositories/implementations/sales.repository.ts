@@ -42,6 +42,14 @@ class SalesRepository implements ISalesRepository {
       },
     });
   }
+
+  async getSalesByPeriod(startDate: Date, endDate: Date): Promise<Order[]> {
+    return await this.orderRepository.find({
+      where: {
+        date: Between(startDate, endDate),
+      },
+    });
+  }
 }
 
 export default SalesRepository;
