@@ -1,3 +1,6 @@
+import Order from "@models/order.model";
+
 export interface IAnalyticsService {
-  getAnalyticsData(criteria: any): Promise<any>;
+  getSalesDataByPeriod(startDate: Date, endDate: Date): Promise<Order[]>;
+  getTopSellingProducts(): Promise<any[]>;
 }

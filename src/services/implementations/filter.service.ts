@@ -1,14 +1,17 @@
-import { IFilterRepository } from "@repositories/interfaces/IFilterRepository";
 import { IFilterService } from "@services/interfaces/IFilterService";
+import { IFilterRepository } from "@repositories/interfaces/IFilterRepository";
+import Order from "@models/order.model";
 
-export default class FilterService implements IFilterService {
+class FilterService implements IFilterService {
   private filterRepository: IFilterRepository;
 
   constructor(filterRepository: IFilterRepository) {
     this.filterRepository = filterRepository;
   }
 
-  async getFilteredData(filters: any): Promise<any> {
-    return this.filterRepository.fetchFilteredData(filters);
+  async filterOrders(criteria: any): Promise<Order[]> {
+    return await this.filterRepository.filterOrders(criteria);
   }
 }
+
+export default FilterService;
