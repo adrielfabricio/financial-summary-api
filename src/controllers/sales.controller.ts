@@ -1,37 +1,55 @@
 import { Request, Response } from "express";
 import { ISalesService } from "@services/interfaces/ISalesService";
 
-export default class SalesController {
+class SalesController {
   private salesService: ISalesService;
 
   constructor(salesService: ISalesService) {
     this.salesService = salesService;
   }
 
-  public async getDailySales(req: Request, res: Response): Promise<void> {
+  async getDailySales(req: Request, res: Response): Promise<Response> {
     try {
-      const sales = await this.salesService.getSalesByPeriod("daily");
-      res.status(200).json(sales);
-    } catch (error: any) {
-      res.status(500).json({ error: error.message });
+      const { date } = req.query;
+      const data = await this.salesService.getDailySales(
+        new Date(date as string)
+      );
+      return res.json(data);
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ message: "Error retrieving daily sales", error });
     }
   }
 
-  public async getWeeklySales(req: Request, res: Response): Promise<void> {
+  async getWeeklySales(req: Request, res: Response): Promise<Response> {
     try {
-      const sales = await this.salesService.getSalesByPeriod("weekly");
-      res.status(200).json(sales);
-    } catch (error: any) {
-      res.status(500).json({ error: error.message });
+      const { startDate } = req.query;
+      const data = await this.salesService.getWeeklySales(
+        new Date(startDate as string)
+      );
+      return res.json(data);
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ message: "Error retrieving weekly sales", error });
     }
   }
 
-  public async getMonthlySales(req: Request, res: Response): Promise<void> {
+  async getMonthlySales(req: Request, res: Response): Promise<Response> {
     try {
-      const sales = await this.salesService.getSalesByPeriod("monthly");
-      res.status(200).json(sales);
-    } catch (error: any) {
-      res.status(500).json({ error: error.message });
+      const { month, year } = req.query;
+      const data = await this.salesService.getMonthlySales(
+        parseInt(month as string),
+        parseInt(year as string)
+      );
+      return res.json(data);
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ message: "Error retrieving monthly sales", error });
     }
   }
 }
+
+export default SalesController;

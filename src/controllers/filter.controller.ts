@@ -1,20 +1,22 @@
 import { Request, Response } from "express";
 import { IFilterService } from "@services/interfaces/IFilterService";
 
-export default class FilterController {
+class FilterController {
   private filterService: IFilterService;
 
   constructor(filterService: IFilterService) {
     this.filterService = filterService;
   }
 
-  public async getFilteredData(req: Request, res: Response): Promise<void> {
+  async filterOrders(req: Request, res: Response): Promise<Response> {
     try {
-      const filters = req.query;
-      const data = await this.filterService.getFilteredData(filters);
-      res.status(200).json(data);
-    } catch (error: any) {
-      res.status(500).json({ error: error.message });
+      const criteria = req.body;
+      const data = await this.filterService.filterOrders(criteria);
+      return res.json(data);
+    } catch (error) {
+      return res.status(500).json({ message: "Error filtering orders", error });
     }
   }
 }
+
+export default FilterController;
