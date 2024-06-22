@@ -9,25 +9,23 @@ import Neighborhood from "./neighborhood.model";
 
 @Entity("LOCALIDADE")
 class Locality {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn({ name: "COD_LOCALIDADE" })
   id: number;
 
-  @Column({ type: "varchar", length: 45, nullable: true })
-  name: string | null;
+  @Column({
+    type: "varchar",
+    length: 45,
+    name: "DCR_LOCALIDADE",
+    nullable: true,
+  })
+  description: string | null;
 
-  @Column({ type: "int" })
+  @Column({ type: "int", name: "COD_BAIRRO" })
   neighborhoodId: number;
 
-  @Column({ type: "int" })
-  parentLocalityId: number;
-
   @ManyToOne(() => Neighborhood)
-  @JoinColumn({ name: "neighborhoodId" })
+  @JoinColumn({ name: "COD_BAIRRO" })
   neighborhood: Neighborhood;
-
-  @ManyToOne(() => Locality)
-  @JoinColumn({ name: "parentLocalityId" })
-  parentLocality: Locality;
 }
 
 export default Locality;

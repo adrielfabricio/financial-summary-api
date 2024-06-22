@@ -15,7 +15,7 @@ class FinancialTransaction {
   id: number;
 
   @Column({ type: "date", name: "DATA_TRANSACAO" })
-  transactionDate: string;
+  transactionDate: Date;
 
   @Column({ type: "decimal", precision: 10, scale: 2, name: "VALOR_TRANSACAO" })
   transactionValue: number;
