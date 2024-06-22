@@ -1,51 +1,31 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToOne,
-  JoinColumn,
-} from "typeorm";
-import City from "./city.model";
-import Neighborhood from "./neighborhood.model";
-import Locality from "./locality.model";
+import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
 @Entity("CLIENTE")
 class Customer {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn({ name: "COD_CLIENTE" })
   id: number;
 
-  @Column({ type: "varchar", length: 45, nullable: true })
-  name: string | null;
+  @Column({ type: "varchar", length: 100, name: "NOME_CLIENTE" })
+  name: string;
 
-  @Column({ type: "varchar", length: 45, nullable: true })
-  address: string | null;
+  @Column({
+    type: "varchar",
+    length: 100,
+    name: "EMAIL_CLIENTE",
+    nullable: true,
+  })
+  email: string | null;
 
-  @Column({ type: "varchar", length: 45, nullable: true })
-  complement: string | null;
+  @Column({
+    type: "varchar",
+    length: 15,
+    name: "TELEFONE_CLIENTE",
+    nullable: true,
+  })
+  phone: string | null;
 
-  @Column({ type: "varchar", length: 10, nullable: true })
-  zipCode: string | null;
-
-  @Column({ type: "int" })
-  cityId: number;
-
-  @Column({ type: "int" })
-  neighborhoodId: number;
-
-  @Column({ type: "int" })
-  localityId: number;
-
-  @ManyToOne(() => City)
-  @JoinColumn({ name: "cityId" })
-  city: City;
-
-  @ManyToOne(() => Neighborhood)
-  @JoinColumn({ name: "neighborhoodId" })
-  neighborhood: Neighborhood;
-
-  @ManyToOne(() => Locality)
-  @JoinColumn({ name: "localityId" })
-  locality: Locality;
+  @Column({ type: "date", name: "DATA_CADASTRO" })
+  registrationDate: string;
 }
 
 export default Customer;
