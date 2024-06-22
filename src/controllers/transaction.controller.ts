@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { ITransactionService } from "@services/interfaces/ITransactionService";
 
-class TransactionController {
+export default class TransactionController {
   private transactionService: ITransactionService;
 
   constructor(transactionService: ITransactionService) {
@@ -39,5 +39,3 @@ class TransactionController {
     }
   }
 }
-
-export default TransactionController;

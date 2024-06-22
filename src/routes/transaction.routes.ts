@@ -3,10 +3,10 @@ import { Router } from "express";
 
 const router = Router();
 
-router.get("/transactions/:transactionId", (req, res) =>
+router.get(":transactionId", (req, res) =>
   transactionController.getTransactionDetails(req, res)
 );
-router.get("/customers/:customerId/transactions", (req, res) =>
+router.get("/:customerId/transactions", (req, res) =>
   transactionController.getTransactionsByCustomer(req, res)
 );
 

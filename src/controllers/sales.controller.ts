@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { ISalesService } from "@services/interfaces/ISalesService";
 
-class SalesController {
+export default class SalesController {
   private salesService: ISalesService;
 
   constructor(salesService: ISalesService) {
@@ -63,5 +63,3 @@ class SalesController {
     }
   }
 }
-
-export default SalesController;

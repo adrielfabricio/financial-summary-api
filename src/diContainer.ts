@@ -3,15 +3,10 @@ import SalesService from "@services/implementations/sales.service";
 import SalesRepository from "@repositories/implementations/sales.repository";
 import SalesController from "@controllers/sales.controller";
 
-// Analytics
-import AnalyticsService from "@services/implementations/analytics.service";
-import AnalyticsRepository from "@repositories/implementations/analytics.repository";
-import AnalyticsController from "@controllers/analytics.controller";
-
-// Filter
-import FilterService from "@services/implementations/filter.service";
-import FilterRepository from "@repositories/implementations/filter.repository";
-import FilterController from "@controllers/filter.controller";
+// Customer
+import CustomerService from "@services/implementations/customer.service";
+import CustomerRepository from "@repositories/implementations/customer.repository";
+import CustomerController from "@controllers/customer.controller";
 
 // Transaction
 import TransactionService from "@services/implementations/transaction.service";
@@ -22,21 +17,12 @@ const salesRepository = new SalesRepository();
 const salesService = new SalesService(salesRepository);
 const salesController = new SalesController(salesService);
 
-const analyticsRepository = new AnalyticsRepository();
-const analyticsService = new AnalyticsService(analyticsRepository);
-const analyticsController = new AnalyticsController(analyticsService);
-
-const filterRepository = new FilterRepository();
-const filterService = new FilterService(filterRepository);
-const filterController = new FilterController(filterService);
+const customerRepository = new CustomerRepository();
+const customerService = new CustomerService(customerRepository);
+const customerController = new CustomerController(customerService);
 
 const transactionRepository = new TransactionRepository();
 const transactionService = new TransactionService(transactionRepository);
 const transactionController = new TransactionController(transactionService);
 
-export {
-  salesController,
-  analyticsController,
-  filterController,
-  transactionController,
-};
+export { salesController, transactionController, customerController };
