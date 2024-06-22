@@ -9,16 +9,16 @@ class SalesService implements ISalesService {
     this.salesRepository = salesRepository;
   }
 
-  async getDailySales(date: Date): Promise<Order[]> {
-    return await this.salesRepository.getDailySales(date);
+  async getSalesByCategory(category: string): Promise<Order[]> {
+    return await this.salesRepository.getSalesByCategory(category);
   }
 
-  async getWeeklySales(startDate: Date): Promise<Order[]> {
-    return await this.salesRepository.getWeeklySales(startDate);
+  async getSalesByProduct(product: string): Promise<Order[]> {
+    return await this.salesRepository.getSalesByProduct(product);
   }
 
-  async getMonthlySales(month: number, year: number): Promise<Order[]> {
-    return await this.salesRepository.getMonthlySales(month, year);
+  async getSalesByLocation(location: string): Promise<Order[]> {
+    return await this.salesRepository.getSalesByLocation(location);
   }
 
   async getSalesByPeriod(startDate: Date, endDate: Date): Promise<Order[]> {

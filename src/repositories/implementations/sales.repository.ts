@@ -12,35 +12,31 @@ class SalesRepository implements ISalesRepository {
       .getRepository(Order);
   }
 
-  async getDailySales(date: Date): Promise<Order[]> {
-    return await this.orderRepository.find({
-      where: {
-        date: Between(
-          new Date(date.setHours(0, 0, 0, 0)),
-          new Date(date.setHours(23, 59, 59, 999))
-        ),
-      },
-    });
+  async getSalesByCategory(category: string): Promise<Order[]> {
+    return await this.orderRepository
+      .createQueryBuilder("order")
+      .select("order.category")
+      .addSelect("SUM(order.totalValue)", "total_sales")
+      .groupBy("order.category")
+      .getRawMany();
   }
 
-  async getWeeklySales(startDate: Date): Promise<Order[]> {
-    const endDate = new Date(startDate);
-    endDate.setDate(startDate.getDate() + 7);
-    return await this.orderRepository.find({
-      where: {
-        date: Between(startDate, endDate),
-      },
-    });
+  async getSalesByProduct(product: string): Promise<Order[]> {
+    return await this.orderRepository
+      .createQueryBuilder("order")
+      .select("order.product")
+      .addSelect("SUM(order.totalValue)", "total_sales")
+      .groupBy("order.product")
+      .getRawMany();
   }
 
-  async getMonthlySales(month: number, year: number): Promise<Order[]> {
-    const startDate = new Date(year, month - 1, 1);
-    const endDate = new Date(year, month, 0);
-    return await this.orderRepository.find({
-      where: {
-        date: Between(startDate, endDate),
-      },
-    });
+  async getSalesByLocation(location: string): Promise<Order[]> {
+    return await this.orderRepository
+      .createQueryBuilder("order")
+      .select("order.location")
+      .addSelect("SUM(order.totalValue)", "total_sales")
+      .groupBy("order.location")
+      .getRawMany();
   }
 
   async getSalesByPeriod(startDate: Date, endDate: Date): Promise<Order[]> {

@@ -8,46 +8,43 @@ class SalesController {
     this.salesService = salesService;
   }
 
-  async getDailySales(req: Request, res: Response): Promise<Response> {
+  async getSalesByCategory(req: Request, res: Response): Promise<Response> {
     try {
-      const { date } = req.query;
-      const data = await this.salesService.getDailySales(
-        new Date(date as string)
+      const { category } = req.query;
+      const data = await this.salesService.getSalesByCategory(
+        category as string
       );
       return res.json(data);
     } catch (error) {
       return res
         .status(500)
-        .json({ message: "Error retrieving daily sales", error });
+        .json({ message: "Error retrieving sales data", error });
     }
   }
 
-  async getWeeklySales(req: Request, res: Response): Promise<Response> {
+  async getSalesByProduct(req: Request, res: Response): Promise<Response> {
     try {
-      const { startDate } = req.query;
-      const data = await this.salesService.getWeeklySales(
-        new Date(startDate as string)
-      );
+      const { product } = req.query;
+      const data = await this.salesService.getSalesByProduct(product as string);
       return res.json(data);
     } catch (error) {
       return res
         .status(500)
-        .json({ message: "Error retrieving weekly sales", error });
+        .json({ message: "Error retrieving sales data", error });
     }
   }
 
-  async getMonthlySales(req: Request, res: Response): Promise<Response> {
+  async getSalesByLocation(req: Request, res: Response): Promise<Response> {
     try {
-      const { month, year } = req.query;
-      const data = await this.salesService.getMonthlySales(
-        parseInt(month as string),
-        parseInt(year as string)
+      const { location } = req.query;
+      const data = await this.salesService.getSalesByLocation(
+        location as string
       );
       return res.json(data);
     } catch (error) {
       return res
         .status(500)
-        .json({ message: "Error retrieving monthly sales", error });
+        .json({ message: "Error retrieving sales data", error });
     }
   }
 
