@@ -7,7 +7,15 @@ import Employee from "@models/employee.model";
 import Customer from "@models/customer.model";
 import PaymentMethod from "@models/payment-method.model";
 import Order from "@models/order.model";
-// import other models as needed
+import Deliverer from "@models/deliverer.model";
+import FinancialTransaction from "@models/financial-transaction.model";
+import MenuSection from "@models/menu-section.model";
+import MenuSectionProduct from "@models/menu-section-product.model";
+import MenuType from "@models/menu-type.model";
+import Menu from "@models/menu.model";
+import ProductType from "@models/product-type.model";
+import Product from "@models/product.model";
+import Sale from "@models/sale.model";
 
 class Database {
   private static instance: Database;
@@ -23,14 +31,22 @@ class Database {
       database: process.env.DB_NAME || "ifoodsocial",
       entities: [
         City,
-        Neighborhood,
-        Locality,
-        Enterprise,
-        Employee,
         Customer,
-        PaymentMethod,
+        Deliverer,
+        Employee,
+        Enterprise,
+        FinancialTransaction,
+        Locality,
+        MenuSectionProduct,
+        MenuSection,
+        MenuType,
+        Menu,
+        Neighborhood,
         Order,
-        // add other models here
+        PaymentMethod,
+        ProductType,
+        Product,
+        Sale,
       ],
       synchronize: false,
     });
