@@ -3,7 +3,7 @@ import { ITransactionRepository } from "@repositories/interfaces/ITransactionRep
 import Order from "@models/order.model";
 import Database from "@config/database";
 
-class TransactionRepository implements ITransactionRepository {
+export default class TransactionRepository implements ITransactionRepository {
   private orderRepository: Repository<Order>;
 
   constructor() {
@@ -12,21 +12,9 @@ class TransactionRepository implements ITransactionRepository {
       .getRepository(Order);
   }
 
-  async getTransactionDetails(transactionId: number): Promise<Order | null> {
-    return await this.orderRepository.findOne({
-      where: {
-        id: transactionId,
-      },
-    });
-  }
-
-  async getTransactionsByCustomer(customerId: number): Promise<Order[]> {
+  async getFinancialTransactions(): Promise<Order[]> {
     return await this.orderRepository.find({
-      where: {
-        customerId,
-      },
+      relations: ["customer", "deliveryman"],
     });
   }
 }
-
-export default TransactionRepository;

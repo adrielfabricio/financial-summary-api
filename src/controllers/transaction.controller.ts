@@ -8,34 +8,14 @@ export default class TransactionController {
     this.transactionService = transactionService;
   }
 
-  async getTransactionDetails(req: Request, res: Response): Promise<Response> {
+  async getFinancialTransactions(req: Request, res: Response) {
     try {
-      const { transactionId } = req.params;
-      const data = await this.transactionService.getTransactionDetails(
-        parseInt(transactionId)
-      );
+      const data = await this.transactionService.getFinancialTransactions();
       return res.json(data);
     } catch (error) {
       return res
         .status(500)
-        .json({ message: "Error retrieving transaction details", error });
-    }
-  }
-
-  async getTransactionsByCustomer(
-    req: Request,
-    res: Response
-  ): Promise<Response> {
-    try {
-      const { customerId } = req.params;
-      const data = await this.transactionService.getTransactionsByCustomer(
-        parseInt(customerId)
-      );
-      return res.json(data);
-    } catch (error) {
-      return res
-        .status(500)
-        .json({ message: "Error retrieving transactions by customer", error });
+        .json({ message: "Error retrieving financial transactions", error });
     }
   }
 }

@@ -1,6 +1,5 @@
 import Order from "@models/order.model";
 
 export interface ITransactionRepository {
-  getTransactionDetails(transactionId: number): Promise<Order | null>;
-  getTransactionsByCustomer(customerId: number): Promise<Order[]>;
+  getFinancialTransactions(): Promise<Order[]>;
 }

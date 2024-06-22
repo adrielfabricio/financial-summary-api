@@ -3,11 +3,7 @@ import { Router } from "express";
 
 const router = Router();
 
-router.get(":transactionId", (req, res) =>
-  transactionController.getTransactionDetails(req, res)
-);
-router.get("/:customerId/transactions", (req, res) =>
-  transactionController.getTransactionsByCustomer(req, res)
-);
+// get financial transactions
+router.get("/", transactionController.getFinancialTransactions);
 
 export default router;

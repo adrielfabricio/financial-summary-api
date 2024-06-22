@@ -9,16 +9,8 @@ class TransactionService implements ITransactionService {
     this.transactionRepository = transactionRepository;
   }
 
-  async getTransactionDetails(transactionId: number): Promise<Order | null> {
-    return await this.transactionRepository.getTransactionDetails(
-      transactionId
-    );
-  }
-
-  async getTransactionsByCustomer(customerId: number): Promise<Order[]> {
-    return await this.transactionRepository.getTransactionsByCustomer(
-      customerId
-    );
+  async getFinancialTransactions(): Promise<Order[]> {
+    return await this.transactionRepository.getFinancialTransactions();
   }
 }
 
