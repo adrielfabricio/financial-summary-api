@@ -1,6 +1,6 @@
+import Sale from "@models/sale.model";
 import { ISalesService } from "@services/interfaces/ISalesService";
 import { ISalesRepository } from "@repositories/interfaces/ISalesRepository";
-import Order from "@models/order.model";
 
 class SalesService implements ISalesService {
   private salesRepository: ISalesRepository;
@@ -9,19 +9,19 @@ class SalesService implements ISalesService {
     this.salesRepository = salesRepository;
   }
 
-  async getSalesByCategory(category: string): Promise<Order[]> {
+  async getSalesByCategory(category: string): Promise<Sale[]> {
     return await this.salesRepository.getSalesByCategory(category);
   }
 
-  async getSalesByProduct(product: string): Promise<Order[]> {
+  async getSalesByProduct(product: string): Promise<Sale[]> {
     return await this.salesRepository.getSalesByProduct(product);
   }
 
-  async getSalesByLocation(location: string): Promise<Order[]> {
+  async getSalesByLocation(location: string): Promise<Sale[]> {
     return await this.salesRepository.getSalesByLocation(location);
   }
 
-  async getSalesByPeriod(startDate: Date, endDate: Date): Promise<Order[]> {
+  async getSalesByPeriod(startDate: Date, endDate: Date): Promise<Sale[]> {
     return await this.salesRepository.getSalesByPeriod(startDate, endDate);
   }
 }

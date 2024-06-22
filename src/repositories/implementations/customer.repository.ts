@@ -15,11 +15,11 @@ export default class CustomerRepository implements ICustomerRepository {
   async getMostActiveCustomers(): Promise<Customer[]> {
     return await this.customerRepository
       .createQueryBuilder("customer")
-      .select("customer.name")
-      .addSelect("COUNT(order.id)", "num_sales")
-      .innerJoin("customer.orders", "order")
+      .leftJoinAndSelect("customer.sales", "sale")
+      .select("customer.name", "customer")
+      .addSelect("COUNT(sale.id)", "numSales")
       .groupBy("customer.name")
-      .orderBy("num_sales", "DESC")
+      .orderBy("numSales", "DESC")
       .getRawMany();
   }
 }

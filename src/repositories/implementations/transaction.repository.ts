@@ -1,20 +1,23 @@
 import { Repository } from "typeorm";
-import { ITransactionRepository } from "@repositories/interfaces/ITransactionRepository";
-import Order from "@models/order.model";
 import Database from "@config/database";
+import FinancialTransaction from "@models/financial-transaction.model";
+import { ITransactionRepository } from "@repositories/interfaces/ITransactionRepository";
 
 export default class TransactionRepository implements ITransactionRepository {
-  private orderRepository: Repository<Order>;
+  private financialTransactionRepository: Repository<FinancialTransaction>;
 
   constructor() {
-    this.orderRepository = Database.getInstance()
+    this.financialTransactionRepository = Database.getInstance()
       .getDataSource()
-      .getRepository(Order);
+      .getRepository(FinancialTransaction);
   }
 
-  async getFinancialTransactions(): Promise<Order[]> {
-    return await this.orderRepository.find({
-      relations: ["customer", "deliveryman"],
-    });
+  async getFinancialTransactions(): Promise<FinancialTransaction[]> {
+    return await this.financialTransactionRepository
+      .createQueryBuilder("transaction")
+      .leftJoinAndSelect("transaction.sale", "sale")
+      .leftJoinAndSelect("transaction.customer", "customer")
+      .leftJoinAndSelect("transaction.deliverer", "deliverer")
+      .getMany();
   }
 }

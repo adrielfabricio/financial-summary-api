@@ -1,5 +1,5 @@
-import Order from "@models/order.model";
+import FinancialTransaction from "@models/financial-transaction.model";
 
 export interface ITransactionRepository {
-  getFinancialTransactions(): Promise<Order[]>;
+  getFinancialTransactions(): Promise<FinancialTransaction[]>;
 }

@@ -15,7 +15,7 @@ class Sale {
   id: number;
 
   @Column({ type: "date", name: "DATA_VENDA" })
-  saleDate: string;
+  saleDate: Date;
 
   @Column({ type: "decimal", precision: 10, scale: 2, name: "VALOR_TOTAL" })
   totalValue: number;

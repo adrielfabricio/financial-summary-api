@@ -1,6 +1,6 @@
+import FinancialTransaction from "@models/financial-transaction.model";
 import { ITransactionService } from "@services/interfaces/ITransactionService";
 import { ITransactionRepository } from "@repositories/interfaces/ITransactionRepository";
-import Order from "@models/order.model";
 
 class TransactionService implements ITransactionService {
   private transactionRepository: ITransactionRepository;
@@ -9,7 +9,7 @@ class TransactionService implements ITransactionService {
     this.transactionRepository = transactionRepository;
   }
 
-  async getFinancialTransactions(): Promise<Order[]> {
+  async getFinancialTransactions(): Promise<FinancialTransaction[]> {
     return await this.transactionRepository.getFinancialTransactions();
   }
 }
