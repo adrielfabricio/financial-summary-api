@@ -9,7 +9,7 @@ import Sale from "./sale.model";
 import Customer from "./customer.model";
 import Deliverer from "./deliverer.model";
 
-@Entity("TRANSAÇÃO_FINANCEIRA")
+@Entity("TRANSACAO_FINANCEIRA")
 class FinancialTransaction {
   @PrimaryGeneratedColumn({ name: "COD_TRANSACAO" })
   id: number;

@@ -1,5 +1,5 @@
 import { Repository } from "typeorm";
-import Database from "@config/database";
+import { dataSource } from "@config/database";
 import Customer from "@models/customer.model";
 import { ICustomerRepository } from "@repositories/interfaces/ICustomerRepository";
 
@@ -7,9 +7,7 @@ export default class CustomerRepository implements ICustomerRepository {
   private customerRepository: Repository<Customer>;
 
   constructor() {
-    this.customerRepository = Database.getInstance()
-      .getDataSource()
-      .getRepository(Customer);
+    this.customerRepository = dataSource.getRepository(Customer);
   }
 
   async getMostActiveCustomers(): Promise<Customer[]> {

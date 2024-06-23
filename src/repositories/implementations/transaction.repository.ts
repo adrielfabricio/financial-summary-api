@@ -1,5 +1,5 @@
 import { Repository } from "typeorm";
-import Database from "@config/database";
+import { dataSource } from "@config/database";
 import FinancialTransaction from "@models/financial-transaction.model";
 import { ITransactionRepository } from "@repositories/interfaces/ITransactionRepository";
 
@@ -7,9 +7,8 @@ export default class TransactionRepository implements ITransactionRepository {
   private financialTransactionRepository: Repository<FinancialTransaction>;
 
   constructor() {
-    this.financialTransactionRepository = Database.getInstance()
-      .getDataSource()
-      .getRepository(FinancialTransaction);
+    this.financialTransactionRepository =
+      dataSource.getRepository(FinancialTransaction);
   }
 
   async getFinancialTransactions(): Promise<FinancialTransaction[]> {

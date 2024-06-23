@@ -25,7 +25,7 @@ class Customer {
   phone: string | null;
 
   @Column({ type: "date", name: "DATA_CADASTRO" })
-  registrationDate: string;
+  registrationDate: Date;
 }
 
 export default Customer;

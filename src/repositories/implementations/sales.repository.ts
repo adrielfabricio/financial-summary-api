@@ -1,15 +1,13 @@
 import { Between, Repository } from "typeorm";
 import Sale from "@models/sale.model";
-import Database from "@config/database";
+import { dataSource } from "@config/database";
 import { ISalesRepository } from "@repositories/interfaces/ISalesRepository";
 
 class SalesRepository implements ISalesRepository {
   private saleRepository: Repository<Sale>;
 
   constructor() {
-    this.saleRepository = Database.getInstance()
-      .getDataSource()
-      .getRepository(Sale);
+    this.saleRepository = dataSource.getRepository(Sale);
   }
 
   async getSalesByCategory(category: string): Promise<Sale[]> {
