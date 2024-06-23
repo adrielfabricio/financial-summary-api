@@ -10,41 +10,45 @@ class SalesRepository implements ISalesRepository {
     this.saleRepository = dataSource.getRepository(Sale);
   }
 
-  async getSalesByCategory(category: string): Promise<Sale[]> {
+  async getSalesByCategory(categoryId: number): Promise<Sale[]> {
     return await this.saleRepository
-      .createQueryBuilder("productType")
-      .leftJoinAndSelect("productType.products", "product")
-      .leftJoinAndSelect("product.sales", "sale")
-      .select("productType.description", "category")
-      .addSelect("SUM(sale.totalValue)", "totalSales")
-      .groupBy("productType.description")
-      .getRawMany();
+      .createQueryBuilder("sale")
+      .leftJoinAndSelect("sale.product", "product")
+      .leftJoinAndSelect("sale.customer", "customer")
+      .leftJoinAndSelect("sale.locality", "locality")
+      .where("product.productTypeId = :categoryId", { categoryId })
+      .getMany();
   }
 
-  async getSalesByProduct(product: string): Promise<Sale[]> {
-    return await this.saleRepository
-      .createQueryBuilder("product")
-      .leftJoinAndSelect("product.sales", "sale")
-      .select("product.description", "product")
-      .addSelect("SUM(sale.totalValue)", "totalSales")
-      .groupBy("product.description")
-      .getRawMany();
+  async getSalesByProduct(productId: number): Promise<Sale[]> {
+    return await this.saleRepository.find({
+      where: {
+        product: {
+          id: productId,
+        },
+      },
+      relations: ["product", "customer", "locality"],
+    });
   }
 
-  async getSalesByLocation(location: string): Promise<Sale[]> {
-    return await this.saleRepository
-      .createQueryBuilder("locality")
-      .leftJoinAndSelect("locality.sales", "sale")
-      .select("locality.description", "location")
-      .addSelect("SUM(sale.totalValue)", "totalSales")
-      .groupBy("locality.description")
-      .getRawMany();
+  async getSalesByLocality(localityId: number): Promise<Sale[]> {
+    return await this.saleRepository.find({
+      where: {
+        locality: {
+          id: localityId,
+        },
+      },
+      relations: ["product", "customer", "locality"],
+    });
   }
 
   async getSalesByPeriod(startDate: Date, endDate: Date): Promise<Sale[]> {
+    const start = startDate.toISOString().split("T")[0];
+    const end = endDate.toISOString().split("T")[0];
+
     return await this.saleRepository.find({
       where: {
-        saleDate: Between(startDate, endDate),
+        saleDate: Between(start, end),
       },
       relations: ["product", "customer", "locality"],
     });

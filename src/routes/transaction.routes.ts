@@ -1,8 +1,7 @@
-import { transactionController } from "@container";
 import { Router } from "express";
+import { transactionController } from "@container";
 
 const router = Router();
-console.log(transactionController);
 
 // get financial transactions
 router.get("/", (req, res) =>

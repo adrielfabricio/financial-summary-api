@@ -1,7 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import Sale from "./sale.model";
 
 @Entity("CLIENTE")
-class Customer {
+export class Customer {
   @PrimaryGeneratedColumn({ name: "COD_CLIENTE" })
   id: number;
 
@@ -14,7 +15,7 @@ class Customer {
     name: "EMAIL_CLIENTE",
     nullable: true,
   })
-  email: string | null;
+  email: string;
 
   @Column({
     type: "varchar",
@@ -22,10 +23,13 @@ class Customer {
     name: "TELEFONE_CLIENTE",
     nullable: true,
   })
-  phone: string | null;
+  phone: string;
 
   @Column({ type: "date", name: "DATA_CADASTRO" })
-  registrationDate: Date;
+  registrationDate: string;
+
+  @OneToMany(() => Sale, (sale) => sale.customer)
+  sales: Sale[];
 }
 
 export default Customer;

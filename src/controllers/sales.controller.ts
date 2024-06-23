@@ -10,9 +10,9 @@ export default class SalesController {
 
   async getSalesByCategory(req: Request, res: Response): Promise<Response> {
     try {
-      const { category } = req.query;
+      const { categoryId } = req.params;
       const data = await this.salesService.getSalesByCategory(
-        category as string
+        parseInt(categoryId)
       );
       return res.json(data);
     } catch (error) {
@@ -24,8 +24,10 @@ export default class SalesController {
 
   async getSalesByProduct(req: Request, res: Response): Promise<Response> {
     try {
-      const { product } = req.query;
-      const data = await this.salesService.getSalesByProduct(product as string);
+      const { productId } = req.params;
+      const data = await this.salesService.getSalesByProduct(
+        parseInt(productId)
+      );
       return res.json(data);
     } catch (error) {
       return res
@@ -34,11 +36,11 @@ export default class SalesController {
     }
   }
 
-  async getSalesByLocation(req: Request, res: Response): Promise<Response> {
+  async getSalesByLocality(req: Request, res: Response): Promise<Response> {
     try {
-      const { location } = req.query;
-      const data = await this.salesService.getSalesByLocation(
-        location as string
+      const { localityId } = req.params;
+      const data = await this.salesService.getSalesByLocality(
+        parseInt(localityId)
       );
       return res.json(data);
     } catch (error) {

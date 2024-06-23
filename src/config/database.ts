@@ -1,5 +1,7 @@
+import dotenv from "dotenv";
 import { DataSource } from "typeorm";
 
+dotenv.config();
 const dataSource = new DataSource({
   type: "mysql",
   host: process.env.DB_HOST || "localhost",

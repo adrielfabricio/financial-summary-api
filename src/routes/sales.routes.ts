@@ -3,9 +3,15 @@ import { salesController } from "@container";
 
 const router = Router();
 
-router.get("/category", salesController.getSalesByCategory);
-router.get("/product", salesController.getSalesByProduct);
-router.get("/location", salesController.getSalesByLocation);
-router.get("/period", salesController.getSalesByPeriod);
+router.get("/category/:categoryId", (req, res) =>
+  salesController.getSalesByCategory(req, res)
+);
+router.get("/product/:productId", (req, res) =>
+  salesController.getSalesByProduct(req, res)
+);
+router.get("/locality/:localityId", (req, res) =>
+  salesController.getSalesByLocality(req, res)
+);
+router.get("/period", (req, res) => salesController.getSalesByPeriod(req, res));
 
 export default router;
