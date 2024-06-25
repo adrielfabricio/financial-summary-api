@@ -7,5 +7,8 @@ const router = Router();
 router.get("/", (req, res) =>
   transactionController.getFinancialTransactions(req, res)
 );
+router.get("/export", (req, res) =>
+  transactionController.exportTransactionsToXLS(req, res)
+);
 
 export default router;
